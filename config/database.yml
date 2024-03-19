@@ -18,16 +18,14 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  <% if ENV["DB_HOST"] %>
-  host: <%= ENV["DB_HOST"] %>
-  username: postgres
-  password: postgres
-  <% end %>
-
+  database: <%= ENV.fetch("DB_NAME") %>
+  username: <%= ENV.fetch("DB_USER") %>
+  password: <%= ENV.fetch("DB_PASSWORD") %>
+  host: <%= ENV.fetch("DB_HOST") %>
+  port: <%= ENV.fetch("DB_PORT") %>
 
 development:
   <<: *default
-  database: klasha_development
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
@@ -85,6 +83,3 @@ test:
 #
 production:
   <<: *default
-  database: klasha_production
-  username: klasha
-  password: <%= ENV["KLASHA_DATABASE_PASSWORD"] %>
